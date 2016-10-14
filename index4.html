@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery.js"></script>
+<script src="js/seedrandom.js"></script>
+
+<style type="text/css">
+#randomTableli {
+	background: white;
+	margin: 0.5em 0;
+	padding: 0.3em;
+	border-right: 1em solid black
+}
+body {
+	padding-left: 11em;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	color:blue;
+	background-color: #FF9D6F
+}
+
+h1 {
+	font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif
+}
+
+ul.randomTable {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	top: 2em;
+	left: 1em;
+	width: 9em
+}
+
+ul.randomTable li {
+	background: white;
+	margin: 0.5em 0;
+	padding: 0.3em;
+	border-right: 1em solid black
+}
+
+ul.randomTable a {
+	text-decoration: none
+}
+
+a:link {
+	color: blue
+}
+
+a:visited {
+	color: purple
+}
+
+a:hover{ position:relative; top:1px; left:1px; }
+
+address {
+	margin-top: 2em;
+	padding-top: 0em;
+	border-top: thin dotted
+}
+</style>
+</head>
+
+
+<body>
+	
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-default">Left</button>
+  <button type="button" class="btn btn-default">Middle</button>
+  <button type="button" class="btn btn-default">Right</button>
+  
+  
+</div>
+
+
+請輸入亂數表的編號：<input type="text" id="txtSeed" value="Aa1234" />
+&nbsp;<input type="button" id="btnGo" value="產生亂數表" />
+
+<div id="randomTable">
+</div>
+
+<script>
+
+$("#btnGo").click(function () {
+    var result = "";
+	// 純數字:
+	　//var sPool = "0123456789";
+    // 數字+小寫字母: (去除 l, o)
+    //var sPool = "abcdefghijkmnpqrstuvwxyz0123456789";
+    // 數字+大小寫字母: (去除 I, O, l, o)
+     var sPool = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz0123456789";
+
+    Math.seedrandom($("#txtSeed").val()); // 設定亂數種子
+	var iRandom = 0; var ch = "?";
+	for (iRow = 1; iRow <= 10; iRow++) {
+		var sLine = (iRow + 100).toString().substr(1, 2) + ": ";
+		for (iCol = 1; iCol <= 10; iCol++) {
+			iRandom = Math.floor(Math.random() * sPool.length);
+			ch = sPool.substr(iRandom, 1);
+			sLine += ch;
+		}
+		result += sLine + "<br>";
+	}
+	$("#randomTable").html(result);
+});
+
+</script>
+
+</body>
+</html>
